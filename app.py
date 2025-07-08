@@ -1,6 +1,6 @@
 
 import streamlit as st
-import openai
+from openai import OpenAI
 import json
 import matplotlib.pyplot as plt
 
@@ -40,12 +40,15 @@ if st.button("Estimate My Emissions"):
     '''
 
     with st.spinner("Calculating with GPT..."):
-        response = openai.ChatCompletion.create(
+        client = openai.OpenAI()
+
+        response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": prompt}],
             temperature=0.3
         )
-        content = response['choices'][0]['message']['content']
+
+        content = response.choices[0].message.content
 
         try:
             result = json.loads(content)
