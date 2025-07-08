@@ -5,7 +5,7 @@ import json
 import matplotlib.pyplot as plt
 
 # --- Configuration ---
-openai.api_key = st.secrets["OPENAI_API_KEY"]  # Use Streamlit secrets for security
+client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 # --- UI ---
 st.title("EcoTrace: Estimate Your Carbon Emissions")
@@ -40,7 +40,7 @@ if st.button("Estimate My Emissions"):
     '''
 
     with st.spinner("Calculating with GPT..."):
-        client = openai.OpenAI()
+        client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
         response = client.chat.completions.create(
             model="gpt-3.5-turbo",
